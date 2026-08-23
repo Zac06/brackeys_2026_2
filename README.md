@@ -4,6 +4,12 @@ A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://git
 
 This project was generated with a template including simple application launchers and a main class extending `Game` that sets the first screen.
 
+## Devtools
+
+- [Intellij Idea IDE](https://www.jetbrains.com/idea/) for development
+- [Hiero](https://libgdx-nightlies.s3.eu-central-1.amazonaws.com/libgdx-runnables/runnable-hiero.jar) to make font files
+- [Aseprite](https://github.com/aseprite/aseprite), [Pixilart](https://www.pixilart.com/), [SpriteFusion](https://www.spritefusion.com/) for the pixel art (use others if comfortable)
+
 ## Platforms
 
 - `core`: Main module with the application logic shared by all platforms.
