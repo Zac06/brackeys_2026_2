@@ -24,7 +24,7 @@ import java.util.concurrent.Callable;
 /**
  * First screen of the application. Displayed after the application is created.
  */
-public class FirstScreen implements Screen {
+public class CreditsScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
@@ -33,28 +33,15 @@ public class FirstScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
-    private Array<Texture> spriteTextures;
-
-    public FirstScreen(){
+    public CreditsScreen(){
         super();
 
-        spriteTextures = new Array<>();
         this.game=(Main)Gdx.app.getApplicationListener();
     }
 
 
     @Override
     public void show() {
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite1.png")));
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite2.png")));
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite3.png")));
-
-        Array<TextureRegion> spriteRegions = new Array<>();
-        for (Texture t : spriteTextures) {
-            spriteRegions.add(new TextureRegion(t));
-        }
-
-
         UnifiedColorClearer.setColor(0, 0, 0, 1f);
         camera = new OrthographicCamera();
         //camera.zoom = 0.5f;       //questo è per i livelli se si vuole fare in modo di cambiare posizione della telecamera in base al personaggio
@@ -70,64 +57,34 @@ public class FirstScreen implements Screen {
         table.setFillParent(true);
         stage.addActor(table);
 
-        Table leftSide=new Table();
-        Table rightSide=new Table();
-
-        TextButton title=new TextButton("PASS\nOR\nCLASS", skin);
-        title.getLabel().setAlignment(Align.left);
-        title.getLabel().setFontScale(4f);
-        title.pad(40);
-
-        AnimatedImage introImage=new AnimatedImage(spriteRegions, 0.3f);
-        introImage.setSize(256, 256);
-
-        Window window=new Window("Select an option", skin);
+        Window window=new Window("Credits", skin);
         window.getTitleLabel().setAlignment(Align.center);
         window.center();
 
         Table windowContent=new Table();
         windowContent.center().pad(80);
 
-        TextButton startButton=new TextButton("START", skin);
-        startButton.getLabel().setAlignment(Align.center);
-        startButton.getLabel().setFontScale(1.5f);
-        startButton.addListener(new ChangeListener() {
+        Label creditsLabel=new Label("The @sleepdeprivedsquad team\n\nCervi Enrico\n\nFrancescato Zaccaria\n\nVola Filippo", skin);
+        creditsLabel.setAlignment(Align.center);
+        windowContent.add(creditsLabel);
+
+        TextButton backButton=new TextButton("BACK TO HOME", skin);
+        backButton.getLabel().setAlignment(Align.center);
+        backButton.getLabel().setFontScale(1.5f);
+        backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("CIAO");
-                table.addAction(Actions.sequence(Actions.fadeOut(2f)));
+                System.out.println("home");
+                table.addAction(Actions.sequence(Actions.fadeOut(2f), Actions.run(() -> game.setScreen(new FirstScreen()))));
             }
         });
 
-        TextButton creditsButton=new TextButton("CREDITS", skin);
-        creditsButton.getLabel().setAlignment(Align.center);
-        creditsButton.getLabel().setFontScale(1.5f);
-        creditsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("crediti");
-                table.addAction(Actions.sequence(Actions.fadeOut(2f), Actions.run(() -> game.setScreen(new CreditsScreen()))));
-
-            }
-        });
-
-        windowContent.add(startButton);
-        windowContent.row().pad(10).row();
-        windowContent.add(creditsButton);
-
+        //windowContent.add(backButton);
         window.add(windowContent).expand().fill();
 
-        leftSide.left().top();
-        leftSide.add(title).pad(40);
-        leftSide.row();
-        leftSide.add(introImage);
-
-        rightSide.center();
-        rightSide.add(window).pad(40);
-
-        table.left().top();
-        table.add(leftSide);
-        table.add(rightSide).expand().fill();
+        table.center();
+        table.add(window).expand().row();
+        table.bottom().pad(40).add(backButton);
 
         table.getColor().a=0f;
         table.addAction(Actions.sequence(Actions.fadeIn(1f)));
@@ -171,9 +128,5 @@ public class FirstScreen implements Screen {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-
-        for (Texture t : spriteTextures){
-            t.dispose();
-        }
     }
 }
