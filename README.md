@@ -9,6 +9,7 @@ This project was generated with a template including simple application launcher
 - [Intellij Idea IDE](https://www.jetbrains.com/idea/) for development
 - [Hiero](https://libgdx-nightlies.s3.eu-central-1.amazonaws.com/libgdx-runnables/runnable-hiero.jar) to make font files
 - [Aseprite](https://github.com/aseprite/aseprite), [Pixilart](https://www.pixilart.com/), [SpriteFusion](https://www.spritefusion.com/) for the pixel art (use others if comfortable)
+- [SkinComposer](https://github.com/raeleus/skin-composer/releases/download/58/SkinComposer.jar) to make the GUI
 
 ## Platforms
 

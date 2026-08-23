@@ -1,5 +1,7 @@
 package it.sleepdeprived.brackeys_2026_2;
 
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,9 +17,18 @@ public class FirstScreen implements Screen {
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    private final Main game;
+
+    public FirstScreen(){
+        super();
+
+        this.game=(Main)Gdx.app.getApplicationListener();
+    }
+
+
     @Override
     public void show() {
-        UnifiedColorClearer.setColor(169, 169, 169, 1f);
+        UnifiedColorClearer.setColor(0, 0, 0, 1f);
         camera = new OrthographicCamera();
         //camera.zoom = 0.5f;       //questo è per i livelli se si vuole fare in modo di cambiare posizione della telecamera in base al personaggio
 
@@ -32,11 +43,11 @@ public class FirstScreen implements Screen {
 
         //camera.position.set(GameProperties.WIN_WIDTH / 2f, GameProperties.WIN_HEIGHT / 2f, 0);        //implicito
         camera.update();
-
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
 
+        //draw everything between batch.begin() and batch.end()
         FontManager.getFont1().draw(this.batch, "Ciao pippo.\nLa X parte dal basso,\nla Y da destra.", 32, 150);
 
         batch.end();
