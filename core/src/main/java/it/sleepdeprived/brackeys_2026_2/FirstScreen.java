@@ -48,7 +48,7 @@ public class FirstScreen implements Screen {
         batch.begin();
 
         //draw everything between batch.begin() and batch.end()
-        FontManager.getFont1().draw(this.batch, "Ciao pippo.\nLa X parte dal basso,\nla Y da destra.", 32, 150);
+        FontManager.getFont1().draw(this.batch, "Ciao pippo.\nLa X parte dal basso,\nla Y da sinistra.", 32, 150);
 
         batch.end();
     }
