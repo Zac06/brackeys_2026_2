@@ -1,0 +1,53 @@
+
+custom-skin.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+button
+  rotate: false
+  xy: 515, 1007
+  size: 32, 20
+  split: 3, 3, 3, 6
+  orig: 32, 20
+  offset: 0, 0
+  index: -1
+button-down
+  rotate: false
+  xy: 515, 1029
+  size: 32, 20
+  split: 3, 3, 7, 3
+  orig: 32, 20
+  offset: 0, 0
+  index: -1
+button-over
+  rotate: false
+  xy: 1, 1
+  size: 32, 20
+  split: 3, 3, 4, 5
+  orig: 32, 20
+  offset: 0, 0
+  index: -1
+bytesized
+  rotate: false
+  xy: 1, 537
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+pixelgame
+  rotate: false
+  xy: 1, 23
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+window
+  rotate: false
+  xy: 549, 1017
+  size: 32, 32
+  split: 7, 9, 18, 5
+  pad: 3, 3, 18, 5
+  orig: 32, 32
+  offset: 0, 0
+  index: -1

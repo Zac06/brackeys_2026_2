@@ -1,0 +1,37 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	bytesized: {
+		file: bytesized.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+	pixelgame: {
+		file: pixelgame.fnt
+		scaledSize: -1
+		markupEnabled: false
+		flip: false
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: {
+		up: button
+		down: button-down
+		over: button-over
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: {
+		font: pixelgame
+		up: button
+		down: button-down
+		over: button-over
+	}
+}
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: {
+		background: window
+		titleFont: pixelgame
+	}
+}
+}

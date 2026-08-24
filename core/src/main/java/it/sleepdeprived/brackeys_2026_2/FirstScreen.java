@@ -3,6 +3,7 @@ package it.sleepdeprived.brackeys_2026_2;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -61,10 +62,7 @@ public class FirstScreen implements Screen {
 
         viewport = new FitViewport(GameProperties.WIN_WIDTH, GameProperties.WIN_HEIGHT, camera);
         stage=new Stage(viewport, game.batch);
-        skin=new Skin(Gdx.files.internal("skins/commodore64/skin/uiskin.json"));
-        for (ObjectMap.Entry<String, BitmapFont> font : skin.getAll(BitmapFont.class)) {
-            font.value.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        }
+        skin=Utils.loadSkinNearestScaling("skins/pixthulhu/skin/pixthulhu-ui.json");
 
         Table table=new Table();
         table.setFillParent(true);
@@ -73,61 +71,46 @@ public class FirstScreen implements Screen {
         Table leftSide=new Table();
         Table rightSide=new Table();
 
-        TextButton title=new TextButton("PASS\nOR\nCLASS", skin);
-        title.getLabel().setAlignment(Align.left);
-        title.getLabel().setFontScale(4f);
-        title.pad(40);
+        Label title=new Label("PASS\nOR\nCLASS", skin);
+        Label.LabelStyle titleStyle = new Label.LabelStyle(title.getStyle());
+        titleStyle.font=skin.getFont("title");
+        title.setStyle(titleStyle);
+        title.setAlignment(Align.left);
 
         AnimatedImage introImage=new AnimatedImage(spriteRegions, 0.3f);
         introImage.setSize(256, 256);
 
-        Window window=new Window("Select an option", skin);
-        window.getTitleLabel().setAlignment(Align.center);
-        window.center();
-
-        Table windowContent=new Table();
-        windowContent.center().pad(80);
-
-        TextButton startButton=new TextButton("START", skin);
-        startButton.getLabel().setAlignment(Align.center);
-        startButton.getLabel().setFontScale(1.5f);
-        startButton.addListener(new ChangeListener() {
+        List<String> options=new List<>(skin);
+        options.setItems("Start", "Credits");
+        options.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("CIAO");
-                table.addAction(Actions.sequence(Actions.fadeOut(2f)));
-            }
-        });
-
-        TextButton creditsButton=new TextButton("CREDITS", skin);
-        creditsButton.getLabel().setAlignment(Align.center);
-        creditsButton.getLabel().setFontScale(1.5f);
-        creditsButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("crediti");
-                table.addAction(Actions.sequence(Actions.fadeOut(2f), Actions.run(() -> game.setScreen(new CreditsScreen()))));
+                System.out.println("Selected: "+options.getSelected());
+                table.addAction(Actions.sequence(Actions.fadeOut(2f), Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(options.getSelected().equals("Start")){
+                            game.setScreen(new FirstScreen());
+                        }else{
+                            game.setScreen(new CreditsScreen());
+                        }
+                    }
+                })));
 
             }
         });
 
-        windowContent.add(startButton);
-        windowContent.row().pad(10).row();
-        windowContent.add(creditsButton);
-
-        window.add(windowContent).expand().fill();
-
-        leftSide.left().top();
+        leftSide.center();
         leftSide.add(title).pad(40);
         leftSide.row();
         leftSide.add(introImage);
 
         rightSide.center();
-        rightSide.add(window).pad(40);
+        rightSide.add(options).pad(40);
 
         table.left().top();
-        table.add(leftSide);
-        table.add(rightSide).expand().fill();
+        table.add(leftSide).expand().fill().uniformX();
+        table.add(rightSide).expand().fill().uniformX();
 
         table.getColor().a=0f;
         table.addAction(Actions.sequence(Actions.fadeIn(1f)));

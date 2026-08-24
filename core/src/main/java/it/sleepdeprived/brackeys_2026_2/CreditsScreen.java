@@ -48,10 +48,7 @@ public class CreditsScreen implements Screen {
 
         viewport = new FitViewport(GameProperties.WIN_WIDTH, GameProperties.WIN_HEIGHT, camera);
         stage=new Stage(viewport, game.batch);
-        skin=new Skin(Gdx.files.internal("skins/commodore64/skin/uiskin.json"));
-        for (ObjectMap.Entry<String, BitmapFont> font : skin.getAll(BitmapFont.class)) {
-            font.value.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        }
+        skin=Utils.loadSkinNearestScaling("skins/pixthulhu/skin/pixthulhu-ui.json");
 
         Table table=new Table();
         table.setFillParent(true);
@@ -70,7 +67,6 @@ public class CreditsScreen implements Screen {
 
         TextButton backButton=new TextButton("BACK TO HOME", skin);
         backButton.getLabel().setAlignment(Align.center);
-        backButton.getLabel().setFontScale(1.5f);
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
