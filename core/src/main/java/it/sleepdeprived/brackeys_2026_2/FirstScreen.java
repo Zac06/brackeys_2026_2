@@ -34,28 +34,15 @@ public class FirstScreen implements Screen {
     private Stage stage;
     private Skin skin;
 
-    private Array<Texture> spriteTextures;
-
     public FirstScreen(){
         super();
 
-        spriteTextures = new Array<>();
         this.game=(Main)Gdx.app.getApplicationListener();
     }
 
 
     @Override
     public void show() {
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite1.png")));
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite2.png")));
-        spriteTextures.add(new Texture(Gdx.files.internal("images/intro_sprite3.png")));
-
-        Array<TextureRegion> spriteRegions = new Array<>();
-        for (Texture t : spriteTextures) {
-            spriteRegions.add(new TextureRegion(t));
-        }
-
-
         UnifiedColorClearer.setColor(0, 0, 0, 1f);
         camera = new OrthographicCamera();
         //camera.zoom = 0.5f;       //questo è per i livelli se si vuole fare in modo di cambiare posizione della telecamera in base al personaggio
@@ -76,9 +63,6 @@ public class FirstScreen implements Screen {
         titleStyle.font=skin.getFont("title");
         title.setStyle(titleStyle);
         title.setAlignment(Align.left);
-
-        AnimatedImage introImage=new AnimatedImage(spriteRegions, 0.3f);
-        introImage.setSize(256, 256);
 
         List<String> options=new List<>(skin);
         options.setItems("Start", "Credits");
@@ -102,8 +86,6 @@ public class FirstScreen implements Screen {
 
         leftSide.center();
         leftSide.add(title).pad(40);
-        leftSide.row();
-        leftSide.add(introImage);
 
         rightSide.center();
         rightSide.add(options).pad(40);
@@ -154,9 +136,5 @@ public class FirstScreen implements Screen {
     public void dispose() {
         stage.dispose();
         skin.dispose();
-
-        for (Texture t : spriteTextures){
-            t.dispose();
-        }
     }
 }
